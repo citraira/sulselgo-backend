@@ -27,7 +27,15 @@ const { verifyToken } = require("./middleware/auth");
 
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://sulselgo-frontend.vercel.app"
+    ],
+    credentials: true
+  })
+);
 
 app.use(helmet());
 
@@ -843,12 +851,11 @@ app.post('/api/verify-reset-code', async (req, res) => {
 
 
 // 5. JALANKAN SERVER
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => {
     console.log(`Server berjalan di port ${PORT}`);
   });
 }
-
 module.exports = { app, mongoose };
