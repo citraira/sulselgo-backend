@@ -31,13 +31,16 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://sulselgo-frontend.vercel.app"
+      "https://sulselgo-frontend.vercel.app",
+      "https://sulselgo-frontend-lgubehk3n-citraira32712-4452s-projects.vercel.app"
     ],
     credentials: true
   })
 );
 
 app.use(helmet());
+
+app.set("trust proxy", 1);
 
 app.use(express.json());
 
