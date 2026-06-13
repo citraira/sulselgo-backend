@@ -14,7 +14,7 @@ jobs:
 
     env:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
-      MONGO_URL: ${{ secrets.MONGO_URL }}
+      MONGO_URl: ${{ secrets.MONGO_URl }}
       NODE_ENV: test
 
     steps:
