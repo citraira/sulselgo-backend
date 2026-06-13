@@ -27,20 +27,9 @@ const { verifyToken } = require("./middleware/auth");
 
 
 // Middleware
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://sulselgo-frontend.vercel.app",
-      "https://sulselgo-frontend-lgubehk3n-citraira32712-4452s-projects.vercel.app"
-    ],
-    credentials: true
-  })
-);
+app.use(cors());
 
 app.use(helmet());
-
-app.set("trust proxy", 1);
 
 app.use(express.json());
 
@@ -54,9 +43,30 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-mongoose.connect(mongoURI)
-  .then(() => console.log("Database SULSELGO Terkoneksi! ✅"))
-  .catch((err) => console.log("Gagal Koneksi Database: ❌", err));
+let connectPromise = null;
+
+async function connectDB() {
+  if (mongoose.connection.readyState === 1) {
+    return;
+  }
+
+  if (mongoose.connection.readyState === 2 && connectPromise) {
+    await connectPromise;
+    return;
+  }
+
+  connectPromise = mongoose.connect(mongoURI);
+  await connectPromise;
+  console.log("Database SULSELGO Terkoneksi! ✅");
+}
+
+mongoose.connection.on("disconnected", () => {
+  connectPromise = null;
+});
+
+mongoose.connection.on("error", () => {
+  connectPromise = null;
+});
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -275,7 +285,7 @@ app.get('/api/user/:id', async (req, res) => {
 
 
 // --- UPDATE USER PROFILE ---
-app.put('/api/user/:id', async (req, res) => {
+app.put('/api/user/:id', verifyToken, async (req, res) => {
 
   try {
 
@@ -857,8 +867,19 @@ app.post('/api/verify-reset-code', async (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV !== "test") {
+
+  connectDB().catch((err) =>
+    console.log("Gagal Koneksi Database: ❌", err)
+  );
+
   app.listen(PORT, () => {
     console.log(`Server berjalan di port ${PORT}`);
   });
+
 }
-module.exports = { app, mongoose };
+
+module.exports = {
+  app,
+  mongoose,
+  connectDB
+};

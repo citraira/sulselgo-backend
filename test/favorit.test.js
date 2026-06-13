@@ -1,17 +1,54 @@
 const request = require("supertest");
 const { app, mongoose } = require("../index");
 
-describe("GET /api/destinasi", () => {
+describe("POST /api/favorit", () => {
 
-  test("endpoint destinasi berhasil diuji", async () => {
+  test("harus gagal jika token tidak diberikan", async () => {
+
     const response = await request(app)
-      .get("/api/destinasi");
+      .post("/api/favorit")
+      .send({
+        userId: "123",
+        destinasiId: "123"
+      });
 
-    expect(response.statusCode).toBeDefined();
+    expect(response.statusCode).toBe(401);
+
+  });
+
+  test("harus mengembalikan pesan token tidak ada", async () => {
+
+    const response = await request(app)
+      .post("/api/favorit")
+      .send({
+        userId: "123",
+        destinasiId: "123"
+      });
+
+    expect(response.body.message).toBe("Token tidak ada");
+
   });
 
 });
 
-afterAll(async () => {
-  await mongoose.connection.close();
+describe("GET /api/favorit/:userId", () => {
+
+  test("harus gagal mengambil favorit tanpa token", async () => {
+
+    const response = await request(app)
+      .get("/api/favorit/123");
+
+    expect(response.statusCode).toBe(401);
+
+  });
+
+  test("response harus memiliki message", async () => {
+
+    const response = await request(app)
+      .get("/api/favorit/123");
+
+    expect(response.body.message).toBeDefined();
+
+  });
+
 });

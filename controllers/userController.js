@@ -31,7 +31,7 @@ const updateUser = async (req, res) => {
       await User.findByIdAndUpdate(
         req.params.id,
         req.body,
-        { new: true }
+        { returnDocument: "after" }
       );
 
     res.json(updatedUser);
