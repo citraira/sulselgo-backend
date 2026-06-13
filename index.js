@@ -55,7 +55,7 @@ async function connectDB() {
     return;
   }
 
-  connectPromise = mongoose.connect(mongoURI);
+  connectPromise = mongoose.connect(mongoURL);
   await connectPromise;
   console.log("Database SULSELGO Terkoneksi! ✅");
 }
