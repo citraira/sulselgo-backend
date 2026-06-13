@@ -15,8 +15,8 @@ const { body, validationResult } = require("express-validator");
 
 const app = express();
 const JWT_SECRET = process.env.JWT_SECRET;
-const mongoURI = process.env.MONGO_URI;
-if (!JWT_SECRET || !mongoURI) {
+const mongoURL = process.env.MONGO_URL;
+if (!JWT_SECRET || !mongoURL) {
   console.log("ENV belum lengkap");
   process.exit(1);
 }
