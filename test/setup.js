@@ -1,4 +1,5 @@
-const { connectDB, mongoose } = require("../index");
+const { connectDB } = require("../index");
+const mongoose = require("mongoose");
 
 beforeAll(async () => {
   await connectDB();
