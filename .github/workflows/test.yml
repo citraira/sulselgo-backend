@@ -30,3 +30,8 @@ jobs:
 
       - name: Run Tests
         run: npx jest --runInBand
+
+      - name: Check env
+        run: |
+          echo "JWT_SECRET exists: ${{ secrets.JWT_SECRET != '' }}"
+          echo "MONGO_URI exists: ${{ secrets.MONGO_URI != '' }}"
