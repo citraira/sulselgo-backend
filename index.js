@@ -24,7 +24,7 @@ if (!JWT_SECRET || !mongoURL) {
 const User = require("./models/User");
 const userRoutes = require("./routes/userRoutes");
 const { verifyToken } = require("./middleware/auth");
-
+const path = require("path");
 
 // Middleware
 app.use(cors());
@@ -32,8 +32,8 @@ app.use(cors());
 app.use(helmet());
 
 app.use(express.json());
-
-app.use("/uploads", express.static("uploads"));
+ 
+app.use("/gambar", express.static(path.join(__dirname, "gambar")));
 
 app.use("/api", userRoutes);
 
