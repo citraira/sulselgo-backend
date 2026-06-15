@@ -33,6 +33,8 @@ app.use(helmet());
 
 app.use(express.json());
 
+app.use("/uploads", express.static("uploads"));
+
 app.use("/api", userRoutes);
 
 const limiter = rateLimit({
