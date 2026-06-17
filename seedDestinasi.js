@@ -191,7 +191,7 @@ const destinasiData = [
     kategori: "Wisata Alam Darat",
     kabupaten: "Gowa",
     lokasi: "https://maps.app.goo.gl/qUVmMpvTNkKKAbhM8",
-    gambar: "https://silver-trout-628550.hostingersite.com/gambar/AirTerjunCinta.png",
+    gambar: "https://silver-trout-628550.hostingersite.com/gambar/AirTerjunCinta1.png",
     galeri: [
       "https://silver-trout-628550.hostingersite.com/gambar/AirTerjunCinta.png",
       "https://silver-trout-628550.hostingersite.com/gambar/AirTerjunCinta1.png"
@@ -338,7 +338,7 @@ const destinasiData = [
     kategori: "Wisata Hiburan",
     kabupaten: "Bone",
     lokasi: "https://maps.app.goo.gl/JGYEFfFoueCveC3u9",
-    gambar: "https://silver-trout-628550.hostingersite.com/gambar/SitujutujueWaterboom.png",
+    gambar: "https://silver-trout-628550.hostingersite.com/gambar/SitujutujueWaterboom1.png",
     galeri: [
       "https://silver-trout-628550.hostingersite.com/gambar/SitujutujueWaterboom.png",
       "https://silver-trout-628550.hostingersite.com/gambar/SitujutujueWaterboom1.png"
@@ -572,7 +572,6 @@ const destinasiData = [
     gambar: "https://silver-trout-628550.hostingersite.com/gambar/PantaiPunaga.png",
     galeri: [
       "https://silver-trout-628550.hostingersite.com/gambar/PantaiPunaga.png",
-      "https://silver-trout-628550.hostingersite.com/gambar/PantaiPunaga1.png"
     ],
     deskripsiSingkat: "Pantai eksotis di Takalar dengan batu karang unik and panorama sunset yang indah.",
     deskripsiLengkap: "Pantai Punaga merupakan salah satu destinasi wisata pantai terkenal di Kabupaten Takalar, Sulawesi Selatan. Pantai ini memiliki ciri khas berupa batuan karang alami yang berada di tepi laut dengan panorama laut biru yang indah. Wisatawan dapat menikmati suasana pantai yang tenang, berburu sunset, berfoto, maupun bersantai menikmati angin laut. Tempat ini menjadi salah satu spot favorit wisata alam and fotografi di Takalar."
@@ -973,7 +972,7 @@ const destinasiData = [
     kategori: "Wisata Alam Darat",
     kabupaten: "Enrekang",
     lokasi: "https://maps.app.goo.gl/tZ7XJFgUDVBECwJAA",
-    gambar: "https://silver-trout-628550.hostingersite.com/gambar/DantePine.png",
+    gambar: "https://silver-trout-628550.hostingersite.com/gambar/DantePine1.png",
     galeri: [
       "https://silver-trout-628550.hostingersite.com/gambar/DantePine.png",
       "https://silver-trout-628550.hostingersite.com/gambar/DantePine1.png"
