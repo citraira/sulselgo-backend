@@ -827,6 +827,25 @@ app.post("/api/sync-destinasi-seeder", async (req, res) => {
   }
 });
 
+
+// RUTE DARURAT: PEMBERSIH SEMUA ULASAN UJI COBA VIA POSTMAN
+app.delete("/api/bersihkan-semua-ulasan-test", async (req, res) => {
+  try {
+    // Menghapus total seluruh dokumen yang ada di koleksi reviews
+    // Catatan: Pastikan nama model Review kamu sesuai (misal: Review atau Ulasan)
+    await Review.deleteMany({}); 
+    
+    res.json({ 
+      success: true, 
+      message: "Database ulasan BERHASIL DIKOSONGKAN TOTAL secara permanen! 🚀✅" 
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+
 // 5. JALANKAN SERVER
 const PORT = process.env.PORT || 5000;
 
