@@ -416,11 +416,8 @@ app.get('/api/favorit/:userId', verifyToken, async (req, res) => {
 });
 
 // --- REVIEWS ---
-// --- REVIEWS ---
 app.get('/api/reviews/:destinasiId', async (req, res) => {
   try {
-    // Cari ulasan hanya berdasarkan destinasiId (ObjectId)
-    // Ini cara paling aman dan akurat
     const data = await Review.find({
       destinasiId: req.params.destinasiId
     }).populate("userId", "username");
@@ -448,7 +445,6 @@ app.post("/api/reviews/:id/like", verifyToken, async (req, res) => {
     
     await review.save();
     
-    // TAMBAHKAN POPULATE AGAR DATA LENGKAP
     const updatedReview = await Review.findById(req.params.id).populate("userId", "username");
     res.json(updatedReview);
   } catch (err) {
@@ -470,7 +466,6 @@ app.post("/api/reviews/:id/dislike", verifyToken, async (req, res) => {
     
     await review.save();
     
-    // TAMBAHKAN POPULATE AGAR DATA LENGKAP
     const updatedReview = await Review.findById(req.params.id).populate("userId", "username");
     res.json(updatedReview);
   } catch (err) {
@@ -554,10 +549,9 @@ app.delete("/api/reviews/:id", verifyToken, async (req, res) => {
 
 });
 
+// --- PERBAIKAN PENGIRIMAN DATA REVIEWS ---
 app.post('/api/reviews', verifyToken, async (req, res) => {
-
   try {
-
     const {
       destinasiId,
       userId,
@@ -566,51 +560,37 @@ app.post('/api/reviews', verifyToken, async (req, res) => {
       ulasan
     } = req.body;
 
-    // cari destinasi
-    const destinasi = await Destinasi.findById(
-      destinasiId
-    );
+    const destinasi = await Destinasi.findById(destinasiId);
 
     if (!destinasi) {
-
       return res.status(404).json({
         message: "Destinasi tidak ditemukan"
       });
-
     }
 
     const newReview = new Review({
-
       destinasiId,
-
       namaDestinasi: destinasi.nama,
-
       userId,
-
       nama,
-
       rating,
-
       ulasan
-
     });
 
     await newReview.save();
 
+    // PERBAIKAN UTAMA: Ambil data ulasan yang baru disimpan dan populate relasi userId
     const savedReview = await Review.findById(newReview._id).populate("userId", "username");
 
-    res.status(201).json(newReview);
+    // Kirim savedReview ke frontend, bukan newReview mentah
+    res.status(201).json(savedReview);
 
   } catch (err) {
-
     console.log(err);
-
     res.status(500).json({
       message: "Gagal mengirim ulasan"
     });
-
   }
-
 });
 
 // --- TOP DESTINASI ---
