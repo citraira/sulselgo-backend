@@ -801,8 +801,31 @@ app.post('/api/verify-reset-code', async (req, res) => {
   }
 });
 
+// ENDPOINT AMAN UNTUK SINKRONISASI DATA DESTINASI (DARI VS CODE)
+app.post("/api/sync-destinasi-seeder", async (req, res) => {
+  try {
+    const dataDariSeeder = req.body;
 
+    if (!Array.isArray(dataDariSeeder) || dataDariSeeder.length === 0) {
+      return res.status(400).json({ success: false, message: "Data yang dikirim kosong atau bukan array!" });
+    }
 
+    // 1. Hapus data destinasi lama di MongoDB Atlas
+    await Destinasi.deleteMany({});
+
+    // 2. Masukkan data destinasi lengkap yang dikirim dari komputer kamu
+    await Destinasi.insertMany(dataDariSeeder);
+
+    res.json({ 
+      success: true, 
+      message: `Sukses! Berhasil menyinkronkan ${dataDariSeeder.length} data destinasi lengkap ke MongoDB Atlas! ✅` 
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
 
 // 5. JALANKAN SERVER
 const PORT = process.env.PORT || 5000;
