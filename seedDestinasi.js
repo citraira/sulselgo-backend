@@ -28,7 +28,7 @@ const destinasiData = [
     nama: "Pulau Samalona",
     kategori: "Wisata Laut & Pesisir",
     kabupaten: "Makassar",
-    lokasi: "https://maps.app.goo.gl/cAbugcZ1UStK6Gup71",
+    lokasi: "https://maps.app.goo.gl/qbJaZLaweFGSijkT8",
     gambar: "https://silver-trout-628550.hostingersite.com/gambar/PulauSamalona.jpeg",
     galeri: [
       "https://silver-trout-628550.hostingersite.com/gambar/PulauSamalona.jpeg",
