@@ -416,67 +416,22 @@ app.get('/api/favorit/:userId', verifyToken, async (req, res) => {
 });
 
 // --- REVIEWS ---
+// --- REVIEWS ---
 app.get('/api/reviews/:destinasiId', async (req, res) => {
-
   try {
-
-  const destinasi = await Destinasi.findById(
-    req.params.destinasiId
-  );
-
-  if (!destinasi) {
-
-    // cari review berdasarkan ID lama
-    const reviewLama = await Review.find({
+    // Cari ulasan hanya berdasarkan destinasiId (ObjectId)
+    // Ini cara paling aman dan akurat
+    const data = await Review.find({
       destinasiId: req.params.destinasiId
     }).populate("userId", "username");
 
-    return res.json(reviewLama);
-  }
-
-    // AMBIL REVIEW BERDASARKAN:
-    // 1. namaDestinasi
-    // 2. destinasiId lama
-    let data = await Review.find({
-
-      $or: [
-
-        {
-          namaDestinasi: destinasi.nama
-        },
-
-        {
-          destinasiId: req.params.destinasiId
-        }
-
-      ]
-
-    }).populate("userId", "username");
-
-    // JIKA TIDAK ADA REVIEW DENGAN ID BARU
-    // CARI BERDASARKAN NAMA DESTINASI
-    if (data.length === 0) {
-
-      data = await Review.find({
-
-        namaDestinasi: destinasi.nama
-
-      }).populate("userId", "username");
-
-    }
-
     res.json(data);
-
   } catch (err) {
-
     console.log(err);
-
     res.status(500).json({
-      message: err.message
+      message: "Gagal mengambil ulasan"
     });
-
   }
-
 });
 
 app.post("/api/reviews/:id/like", verifyToken, async (req, res) => {
