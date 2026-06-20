@@ -597,6 +597,8 @@ app.post('/api/reviews', verifyToken, async (req, res) => {
 
     await newReview.save();
 
+    const savedReview = await Review.findById(newReview._id).populate("userId", "username");
+
     res.status(201).json(newReview);
 
   } catch (err) {
